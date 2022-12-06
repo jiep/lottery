@@ -1,16 +1,11 @@
 use std::fmt;
 
-use nom::{
-    bytes::complete::tag,
-    multi::separated_list1,
-    IResult,
-};
+use nom::{bytes::complete::tag, multi::separated_list1, IResult};
 use serde::{Deserialize, Serialize};
 
 use super::lottery_location::LotteryLocation;
 
-#[derive(Serialize, Deserialize)]
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Lottery {
     pub number: u32,
     pub locations: Vec<LotteryLocation>,
@@ -51,9 +46,8 @@ impl Lottery {
         })
     }
 
-    pub fn parse_to_json(&self) -> serde_json::Result<String>    {
-        Ok(serde_json::to_string_pretty(self)?)
-
+    pub fn parse_to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
     }
 }
 

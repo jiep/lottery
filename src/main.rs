@@ -14,7 +14,7 @@ struct Args {
 
     /// Return as json
     #[arg(short, long, action)]
-    json: bool
+    json: bool,
 }
 
 fn main() {
@@ -22,5 +22,12 @@ fn main() {
 
     let lottery = Lottery::load_from_url(args.url, args.number).unwrap();
 
-    println!("{}", if args.json { lottery.parse_to_json().unwrap() } else { lottery.to_string() });
+    println!(
+        "{}",
+        if args.json {
+            lottery.parse_to_json().unwrap()
+        } else {
+            lottery.to_string()
+        }
+    );
 }

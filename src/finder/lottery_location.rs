@@ -9,8 +9,7 @@ use nom::{
 };
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct LotteryLocation {
     name: String,
     address: String,
@@ -70,8 +69,10 @@ impl LotteryLocation {
     fn parse_list_series(input: &str) -> IResult<&str, Vec<u8>> {
         separated_list0(tag(", "), map_res(recognize(digit1), str::parse::<u8>))(input)
     }
+}
 
-    fn to_string(&self) -> String {
+impl fmt::Display for LotteryLocation {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let series = self
             .series
             .iter()
@@ -79,9 +80,9 @@ impl LotteryLocation {
             .collect::<Vec<String>>()
             .join(", ");
 
-        format!(
+        let string = format!(
             "Name: {}\nAddress: {}\nCity: {}\nProvince: {}\nPhone: {}\nSeries: {}",
-            if self.name.len() > 0 {
+            if !self.name.is_empty() {
                 &self.name
             } else {
                 "[Not set]"
@@ -91,12 +92,8 @@ impl LotteryLocation {
             self.province,
             self.phone,
             series
-        )
-    }
-}
+        );
 
-impl fmt::Display for LotteryLocation {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_string())
+        write!(f, "{}", string)
     }
 }
