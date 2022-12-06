@@ -111,7 +111,7 @@ Series: 2
 
 #### Find locations for 12345 and show as JSON
 
-```json
+```
 lottery --number 12345 --json
 
 {
