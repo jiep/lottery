@@ -3,7 +3,7 @@ use std::fmt;
 use nom::{bytes::complete::tag, multi::separated_list1, IResult};
 use serde::{Deserialize, Serialize};
 
-use super::lottery_location::LotteryLocation;
+use super::location::LotteryLocation;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Lottery {

@@ -1,13 +1,9 @@
 use std::fmt;
 
-use nom::multi::separated_list0;
-use nom::{
-    bytes::complete::{tag, take_till},
-    character::complete::digit1,
-    combinator::{map_res, recognize},
-    IResult,
-};
+use nom::IResult;
 use serde::{Deserialize, Serialize};
+
+use super::parser::parse_location;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LotteryLocation {
@@ -39,19 +35,7 @@ impl LotteryLocation {
     }
 
     pub fn parse(input: &str) -> IResult<&str, LotteryLocation> {
-        let (input, _) = tag("Nombre del receptor: ")(input)?;
-        let (input, name) = take_till(|c| c == '\r')(input)?;
-        let (input, _) = tag("\r\nDirección: ")(input)?;
-        let (input, address) = take_till(|c| c == '\r')(input)?;
-        let (input, _) = tag("\r\nPoblación: ")(input)?;
-        let (input, city) = take_till(|c| c == '\r')(input)?;
-        let (input, _) = tag("\r\nProvincia: ")(input)?;
-        let (input, province) = take_till(|c| c == '\r')(input)?;
-        let (input, _) = tag("\r\nTelefono: ")(input)?;
-        let (input, phone) = take_till(|c| c == '\r')(input)?;
-        let (input, _) = tag("\r\nSeries: ")(input)?;
-        let (input, series) = Self::parse_list_series(input)?;
-        let (input, _) = tag("\r\n")(input)?;
+        let (input, (name, address, city, province, phone, series)) = parse_location(input)?;
 
         Ok((
             input,
@@ -64,10 +48,6 @@ impl LotteryLocation {
                 series,
             ),
         ))
-    }
-
-    fn parse_list_series(input: &str) -> IResult<&str, Vec<u8>> {
-        separated_list0(tag(", "), map_res(recognize(digit1), str::parse::<u8>))(input)
     }
 }
 
