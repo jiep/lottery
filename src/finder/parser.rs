@@ -41,16 +41,4 @@ pub fn parse_location(input: &str) -> IResult<&str, LocationTuple> {
             series,
         ),
     ))
-
-    // Ok((
-    //     input,
-    //     LotteryLocation::new(
-    //         name.to_string(),
-    //         address.to_string(),
-    //         city.to_string(),
-    //         province.to_string(),
-    //         phone.to_string(),
-    //         series,
-    //     ),
-    // ))
 }
