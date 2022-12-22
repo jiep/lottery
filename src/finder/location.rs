@@ -39,14 +39,7 @@ impl LotteryLocation {
 
         Ok((
             input,
-            LotteryLocation::new(
-                name.to_string(),
-                address.to_string(),
-                city.to_string(),
-                province.to_string(),
-                phone.to_string(),
-                series,
-            ),
+            LotteryLocation::new(name, address, city, province, phone, series),
         ))
     }
 }
