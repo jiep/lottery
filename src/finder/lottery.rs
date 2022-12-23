@@ -24,7 +24,7 @@ impl Lottery {
         separated_list1(tag("\r\n"), LotteryLocation::parse)(input)
     }
 
-    fn make_request(url: String, number: u32) -> Result<String, Box<dyn std::error::Error>> {
+    fn make_request(url: &str, number: u32) -> Result<String, Box<dyn std::error::Error>> {
         let url = format!("{}{:0>5}", url, number);
         let res = reqwest::blocking::get(url)?;
         let input = res.text().unwrap();
@@ -32,7 +32,7 @@ impl Lottery {
         Ok(input)
     }
 
-    pub fn load_from_url(url: String, number: u32) -> Result<Lottery, Box<dyn std::error::Error>> {
+    pub fn load_from_url(url: &str, number: u32) -> Result<Lottery, Box<dyn std::error::Error>> {
         let input = Self::make_request(url, number);
 
         if let Ok((rest, locations)) = Self::parse(input?.as_str()) {

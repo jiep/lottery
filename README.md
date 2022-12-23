@@ -4,7 +4,7 @@
 
   <h1><code>Lottery finder</code></h1>
 
-  <strong>Find `Lotería de Navidad` numbers</strong>
+  <strong>Find and check `Lotería de Navidad` numbers</strong>
 
   [![ci](https://github.com/jiep/lottery/actions/workflows/ci.yml/badge.svg)](https://github.com/jiep/lottery/actions/workflows/ci.yml)
   [![dependency status](https://deps.rs/repo/github/jiep/lottery/status.svg)](https://deps.rs/repo/github/jiep/lottery)
@@ -52,9 +52,40 @@ cargo run
 ## 🚴 Usage
 
 ```
-A simple `Lotería de Navidad` finder
+A simple `Lotería de Navidad` finder and checker
 
-Usage: lottery [OPTIONS] --number <NUMBER>
+Usage: lottery <COMMAND>
+
+Commands:
+  check  Check if a lottery number is prizewinning
+  find   Find where a lottery number is located
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help information
+  -V, --version  Print version information
+```
+
+### Check
+
+```
+Check if a lottery number is prizewinning
+
+Usage: lottery check [OPTIONS]
+
+Options:
+  -n, --numbers <NUMBERS>...  
+  -u, --url <URL>             Set url to download prizes from [default: https://www.loteriasyapuestas.es/servicios/premioDecimoWeb?idsorteo=1186309102]
+  -h, --help                  Print help information
+  -V, --version               Print version information
+```
+
+### Find
+
+```
+Find where a lottery number is located
+
+Usage: lottery find [OPTIONS] --number <NUMBER>
 
 Options:
   -n, --number <NUMBER>  Number to find
@@ -64,12 +95,25 @@ Options:
   -V, --version          Print version information
 ```
 
-### Example
+### Examples
 
-#### Find locations for 12345
+#### Check prizes for numbers 05490 12345 45544, and 88898 
 
 ```
-lottery --number 12345
+lottery check --numbers 05490 12345 45544 88898
+
+05490 => 400000 euros 🎉
+12345 => 0 euros 😭
+45544 => 0 euros 😭
+88898 => 0 euros 😭
+
+Total: 40000000 euros
+```
+
+#### Find locations for number 12345
+
+```
+lottery find --number 12345
 
 Locations for 12345
 
