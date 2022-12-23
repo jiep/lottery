@@ -64,12 +64,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Ok(prizes) = check(args.url.as_str(), to_check) {
                 let mut sum = 0_u32;
                 prizes.iter().for_each(|(number, prize)| {
+                    let prize = prize / 100;
                     sum += prize;
                     println!(
                         "{:0>5} => {} euros {}",
                         number,
-                        prize / 100,
-                        if prize > &0_u32 { "🎉" } else { "😭" }
+                        prize,
+                        if prize > 0_u32 { "🎉" } else { "😭" }
                     );
                 });
                 println!("\nTotal: {sum} euros");
