@@ -107,7 +107,7 @@ lottery check --numbers 05490 12345 45544 88898
 45544 => 0 euros 😭
 88898 => 0 euros 😭
 
-Total: 40000000 euros
+Total: 400000 euros
 ```
 
 #### Find locations for number 12345
