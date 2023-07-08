@@ -24,7 +24,7 @@ struct Find {
     number: u32,
 
     /// Set url to download locations from
-    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/new-geo-web/JsonGenerationServlet/exportPois.txt?drawId=1186309102&number="))]
+    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/new-geo-web/JsonGenerationServlet/exportPois.txt?drawId=1222809102&number="))]
     url: String,
 
     /// Return as json
