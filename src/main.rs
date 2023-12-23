@@ -39,7 +39,7 @@ struct Check {
     numbers: Vec<u32>,
 
     /// Set url to download prizes from
-    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/servicios/premioDecimoWeb?idsorteo=1186309102"))]
+    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/servicios/premioDecimoWeb?idsorteo=1222809102"))]
     url: String,
 }
 
