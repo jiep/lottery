@@ -46,7 +46,7 @@ cargo test
 cargo run
 # or
 ./target/release/lottery # for release version
-./target/debug/lottery # for debug version
+./target/debug/lottery   # for debug version
 ```
 
 ## 🚴 Usage
@@ -75,9 +75,9 @@ Usage: lottery check [OPTIONS]
 
 Options:
   -n, --numbers <NUMBERS>...  
-  -u, --url <URL>             Set url to download prizes from [default: https://www.loteriasyapuestas.es/servicios/premioDecimoWeb?idsorteo=1186309102]
-  -h, --help                  Print help information
-  -V, --version               Print version information
+  -d, --draw-id <DRAW_ID>     Set url to download prizes from [default: 1222809102]
+  -h, --help                  Print help
+  -V, --version               Print version
 ```
 
 ### Find
@@ -88,11 +88,11 @@ Find where a lottery number is located
 Usage: lottery find [OPTIONS] --number <NUMBER>
 
 Options:
-  -n, --number <NUMBER>  Number to find
-  -u, --url <URL>        Set url to download locations from [default: https://www.loteriasyapuestas.es/new-geo-web/JsonGenerationServlet/exportPois.txt?drawId=1186309102&number=]
-  -j, --json             Return as json
-  -h, --help             Print help information
-  -V, --version          Print version information
+  -n, --number <NUMBER>    Number to find
+  -d, --draw-id <DRAW_ID>  Set url to download locations from [default: 1222809102]
+  -j, --json               Return as json
+  -h, --help               Print help
+  -V, --version            Print version
 ```
 
 ### Examples
