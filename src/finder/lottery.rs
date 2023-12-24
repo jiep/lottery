@@ -3,6 +3,8 @@ use std::fmt;
 use nom::{bytes::complete::tag, multi::separated_list1, IResult};
 use serde::{Deserialize, Serialize};
 
+use crate::common::{consts::FIND_URL, url::make_find_url};
+
 use super::location::LotteryLocation;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -32,8 +34,12 @@ impl Lottery {
         Ok(input)
     }
 
-    pub fn load_from_url(url: &str, number: u32) -> Result<Lottery, Box<dyn std::error::Error>> {
-        let input = Self::make_request(url, number);
+    pub fn load_from_draw_id(
+        draw_id: u32,
+        number: u32,
+    ) -> Result<Lottery, Box<dyn std::error::Error>> {
+        let url = make_find_url(FIND_URL, draw_id);
+        let input = Self::make_request(&url, number);
 
         if let Ok((rest, locations)) = Self::parse(input?.as_str()) {
             assert!(rest.is_empty());
