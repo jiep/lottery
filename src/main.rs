@@ -1,4 +1,5 @@
 use clap::{Args, Parser, Subcommand};
+use lottery::common::consts::DEFAULT_DRAW_ID;
 use lottery::{checker::check::check, finder::lottery::Lottery};
 
 #[derive(Parser)]
@@ -24,8 +25,8 @@ struct Find {
     number: u32,
 
     /// Set url to download locations from
-    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/new-geo-web/JsonGenerationServlet/exportPois.txt?drawId=1222809102&number="))]
-    url: String,
+    #[arg(short, long, default_value_t = DEFAULT_DRAW_ID)]
+    draw_id: u32,
 
     /// Return as json
     #[arg(short, long, action)]
@@ -39,8 +40,8 @@ struct Check {
     numbers: Vec<u32>,
 
     /// Set url to download prizes from
-    #[arg(short, long, default_value_t = String::from("https://www.loteriasyapuestas.es/servicios/premioDecimoWeb?idsorteo=1222809102"))]
-    url: String,
+    #[arg(short, long, default_value_t = DEFAULT_DRAW_ID)]
+    draw_id: u32,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -48,7 +49,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     match &cli.command {
         Commands::Find(args) => {
-            let lottery = Lottery::load_from_url(args.url.as_ref(), args.number).unwrap();
+            let lottery = Lottery::load_from_draw_id(args.draw_id, args.number).unwrap();
 
             println!(
                 "{}",
@@ -61,7 +62,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Check(args) => {
             let to_check: Vec<String> = args.numbers.iter().map(|x| x.to_string()).collect();
-            if let Ok(prizes) = check(args.url.as_str(), to_check) {
+            if let Ok(prizes) = check(args.draw_id, to_check) {
                 let mut sum = 0_u32;
                 prizes.iter().for_each(|(number, prize)| {
                     let prize = prize / 100;
