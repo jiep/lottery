@@ -1,6 +1,6 @@
 [package]
 name = "lottery"
-version = "0.2.4"
+version = "0.3.0"
 edition = "2021"
 description = "A simple `Lotería de Navidad` finder and checker"
 
