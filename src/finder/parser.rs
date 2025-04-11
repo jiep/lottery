@@ -1,4 +1,5 @@
 use nom::multi::separated_list0;
+use nom::Parser;
 use nom::{
     bytes::complete::{tag, take_till},
     character::complete::digit1,
@@ -9,14 +10,14 @@ use nom::{
 type LocationTuple = (String, String, String, String, String, Vec<u8>);
 
 fn parse_line(input: &str, start: String, ch: char) -> IResult<&str, &str> {
-    let (input, _) = tag(start.as_str())(input)?;
-    let (input, output) = take_till(|c| c == ch)(input)?;
+    let (input, _) = tag(start.as_str()).parse(input)?;
+    let (input, output) = take_till(|c| c == ch).parse(input)?;
 
     Ok((input, output))
 }
 
 fn parse_list_series(input: &str) -> IResult<&str, Vec<u8>> {
-    separated_list0(tag(", "), map_res(recognize(digit1), str::parse::<u8>))(input)
+    separated_list0(tag(", "), map_res(recognize(digit1), str::parse::<u8>)).parse(input)
 }
 
 pub fn parse_location(input: &str) -> IResult<&str, LocationTuple> {
