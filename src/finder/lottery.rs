@@ -1,6 +1,7 @@
 use std::fmt;
 
 use nom::{bytes::complete::tag, multi::separated_list1, IResult};
+use nom::Parser;
 use serde::{Deserialize, Serialize};
 
 use crate::common::{consts::FIND_URL, url::make_find_url};
@@ -23,7 +24,7 @@ impl Lottery {
 
     fn parse(input: &str) -> IResult<&str, Vec<LotteryLocation>> {
         let (input, _) = tag("\r\n")(input)?;
-        separated_list1(tag("\r\n"), LotteryLocation::parse)(input)
+        separated_list1(tag("\r\n"), LotteryLocation::parse).parse(input)
     }
 
     fn make_request(url: &str, number: u32) -> Result<String, Box<dyn std::error::Error>> {
