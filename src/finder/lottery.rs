@@ -1,7 +1,7 @@
 use std::fmt;
 
-use nom::{bytes::complete::tag, multi::separated_list1, IResult};
 use nom::Parser;
+use nom::{bytes::complete::tag, multi::separated_list1, IResult};
 use serde::{Deserialize, Serialize};
 
 use crate::common::{consts::FIND_URL, url::make_find_url};
