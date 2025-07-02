@@ -32,7 +32,7 @@ pub fn check(
     let mut out: Vec<(String, u32)> = vec![];
     let prizes = get_prizes(draw_id)?;
     for x in to_check.iter() {
-        let number = format!("{:0>6}", x);
+        let number = format!("{x:0>6}");
         let prize = prizes.get(&number).unwrap_or(&0_u32);
         out.push((x.to_string(), *prize));
     }

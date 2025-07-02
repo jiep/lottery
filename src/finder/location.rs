@@ -67,6 +67,6 @@ impl fmt::Display for LotteryLocation {
             series
         );
 
-        write!(f, "{}", string)
+        write!(f, "{string}")
     }
 }
