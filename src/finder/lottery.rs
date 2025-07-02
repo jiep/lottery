@@ -66,9 +66,6 @@ impl fmt::Display for Lottery {
             .map(|x| x.to_string())
             .collect::<Vec<String>>()
             .join("\n\n");
-        write!(
-            f,
-            "Locations for {:0>5}\n\n{formatted_string}", self.number
-        )
+        write!(f, "Locations for {:0>5}\n\n{formatted_string}", self.number)
     }
 }
