@@ -28,7 +28,7 @@ impl Lottery {
     }
 
     fn make_request(url: &str, number: u32) -> Result<String, Box<dyn std::error::Error>> {
-        let url = format!("{}{:0>5}", url, number);
+        let url = format!("{url}{number:0>5}");
         let res = reqwest::blocking::get(url)?;
         let input = res.text().unwrap();
 
@@ -66,10 +66,6 @@ impl fmt::Display for Lottery {
             .map(|x| x.to_string())
             .collect::<Vec<String>>()
             .join("\n\n");
-        write!(
-            f,
-            "Locations for {:0>5}\n\n{}",
-            self.number, formatted_string
-        )
+        write!(f, "Locations for {:0>5}\n\n{formatted_string}", self.number)
     }
 }
