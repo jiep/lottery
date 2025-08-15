@@ -1,10 +1,10 @@
-use nom::multi::separated_list0;
 use nom::Parser;
+use nom::multi::separated_list0;
 use nom::{
+    IResult,
     bytes::complete::{tag, take_till},
     character::complete::digit1,
     combinator::{map_res, recognize},
-    IResult,
 };
 
 type LocationTuple = (String, String, String, String, String, Vec<u8>);
